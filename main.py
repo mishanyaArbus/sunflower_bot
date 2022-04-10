@@ -80,13 +80,6 @@ else:
     print("Failed to create session")
     input()
 
-#sending requests for full automation
-while True:
-    _data = {"sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000", "farmId": farmId}
-    sessiondata = s.post("https://api.sunflower-land.com/session", json=_data).json()
-
-    #parsing
-
 
 plantName = input("Plant name ---> ")
 growTime = int(input("Grow time in sec ---> "))
