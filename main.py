@@ -3,6 +3,8 @@ import requests as r
 import random
 import time
 from datetime import datetime
+from web3.auto import w3
+from eth_account.messages import encode_defunct
 from sys import argv
 
 def CreateOrder(orderType, itemName = None, amount_or_place = None):
@@ -52,8 +54,6 @@ while True:
     farmId = int(input("Farm id ---> "))
 
     #creating signature
-    from web3.auto import w3
-    from eth_account.messages import encode_defunct
     signed_message =  w3.eth.account.sign_message(encode_defunct(text="🌻 Welcome to Sunflower Land! 🌻\n\n" +"Click to sign in and accept the Sunflower Land\n" +"📜 Terms of Service:\n" +"https://docs.sunflower-land.com/support/terms-of-service\n\n" +"This request will not trigger a blockchain\n" +"transaction or cost any gas fees.\n\n" +"Your authentication status will reset after\n" +"each session.\n\n" +"👛 Wallet address:\n" +f"{address[:19]}...{address[-18:]}\n\n" + f"🔑 Nonce: "+str(int(datetime.now(pytz.utc).strftime("%j"))+18992)),
                                                   private_key=pkey)
     sign = str(signed_message).split("signature=HexBytes('")[-1].split("'")[0]
@@ -81,20 +81,11 @@ else:
     input()
 
 #sending requests for full automation
-# while True:
-#     _data = {"sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000", "farmId": farmId}
-#     sessiondata = s.post("https://api.sunflower-land.com/session", json=_data).json()
-#     actions = []
-#
-#     if float(sessiondata["farm"]["balance"])>=0.4 and int(sessiondata["farm"]["stock"]["Pumpkin Soup"])==1:
-#         print("Trying to buy pumpkin soup ingredients")
-#         if "Pumpkin Seed" in sessiondata["farm"]["inventory"]:
-#             if sessiondata["farm"]["inventory"]["Pumpkin Seed"] < 5:
-#                 actions.append(CreateOrder("crafted", "Pumpkin Seed", 5-sessiondata["farm"]["inventory"]["Pumpkin Seed"]))
-#         else:
-#             actions.append(CreateOrder("crafted", "Pumpkin Seed", 5))
-#
-#         actions.extend([CreateOrder("plant", "Pumpkin Seed", i) for i in range(5)])
+while True:
+    _data = {"sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000", "farmId": farmId}
+    sessiondata = s.post("https://api.sunflower-land.com/session", json=_data).json()
+
+    #parsing
 
 
 plantName = input("Plant name ---> ")
