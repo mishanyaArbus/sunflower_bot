@@ -26,9 +26,9 @@ s = r.Session()
 s.headers.update({'user-agent': random.choice(useragents), 'origin':'https://sunflower-land.com', 'referer':'https://sunflower-land.com/'})
 
 while True:
-    pkey = input("Private key ---> ") # "0x0f1236240fd8beb726aff57bf66189e2b6de18e4a7258b1bc020a4f58b2d6073"
-    address = input("Metamask address ---> ") # "0x5CA3bc9C37911308dddE2ffe4b71BCEC3759edA1"
-    farmId = int(input("Farm id ---> ")) # 28276
+    pkey = input("Private key ---> ")
+    address = input("Metamask address ---> ")
+    farmId = int(input("Farm id ---> "))
      # 19091
 
 
